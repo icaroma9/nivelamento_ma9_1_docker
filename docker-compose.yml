@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.3
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    networks:
+      - db_network
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    networks:
+      - nginx_network
+  web:
+    build: .
+    restart: always
+    volumes: 
+      - .:/code
+    command: bash -c "while ! < /dev/tcp/db/5432; do echo 'Waiting for Postgres' && sleep 1; done; 
+          python manage.py collectstatic
+          && python manage.py migrate 
+          && python manage.py createsuperusuario
+          && gunicorn nivelamento.wsgi:application -b 0.0.0.0:8000"
+    depends_on:
+      - db
+    networks:
+      - nginx_network
+      - db_network
+volumes:
+  pgdata:
+networks:
+  nginx_network:
+  db_network:
