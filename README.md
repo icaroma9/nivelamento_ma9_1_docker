@@ -22,7 +22,7 @@ Aplicação de containers do Docker ao projeto de nivelamento para o cargo de De
 ### DB
 - Usa a imagem do PostgreSQL
 - Banco é configurado através das variáveis de ambiente presentes no arquivo .env na raiz do projeto
-- usa o volume pgdata para persistir alterações no banco de dados
+- Usa o volume pgdata para persistir alterações no banco de dados
 - Pertence a rede db_network
 
 ## Sobre o docker-compose.yml
