@@ -1,4 +1,4 @@
-from rest_framework.test import APIRequestFactory, APILiveServerTestCase
+from rest_framework.test import APILiveServerTestCase
 
 from app.models import Usuario
 

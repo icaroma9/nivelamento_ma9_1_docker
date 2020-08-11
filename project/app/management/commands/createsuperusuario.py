@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from django.db.utils import IntegrityError
+
 from decouple import config
 
 from app.models import Usuario
